@@ -1,0 +1,22 @@
+server:
+  port: 8181
+
+tg-bot:
+  name: jra_test_bot
+  key: 5594193775:AAEez8iB72U87-KIvWMWXcAzO_Bza7q3Y7E
+
+# H2
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  # Datasource
+  datasource:
+    url: 'jdbc:h2:file:./h2/spring-boot-h2-db'
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
