@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TgUserRepo extends JpaRepository<TgUser, Long> {
 
+    TgUser findTgUserByChatId(Long chatId);
+
 }

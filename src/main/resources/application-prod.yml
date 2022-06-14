@@ -1,0 +1,19 @@
+server:
+  port: 8181
+
+spring:
+  main:
+    banner-mode: off
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/lesson'
+    username: lesson
+    password: lesson
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: 'org.hibernate.dialect.PostgreSQL9Dialect'
+
+tg-bot:
+  name: xxxxx
+  key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

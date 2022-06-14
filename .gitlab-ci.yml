@@ -1,0 +1,64 @@
+#image: gitlab/dind
+
+#services:
+#  - docker:dind
+
+#variables:
+#  DOCKER_DRIVER: overlay
+#  SPRING_PROFILES_ACTIVE: git
+#  USER_GITLAB: pbadun
+#  APP_NAME: an_crm_location
+#  REPO: ancrmlocation
+#  APP_VER: '0.1'
+
+stages:
+  - build
+#  - docker
+#  - deplay
+
+maven-build:
+  image: maven:3-jdk-11
+  stage: build
+  tags:
+    - build
+  script: "mvn clean package -B"
+  artifacts:
+    paths:
+      - target/*.jar
+  when: manual
+
+#docker-build:
+#  tags:
+#    - shell
+#  stage: docker
+#  script:
+#    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+#    - docker build -t dgit.an7.by/$USER_GITLAB/$REPO:latest -t dgit.an7.by/$USER_GITLAB/$REPO:$APP_VER .
+#    - docker push dgit.an7.by/$USER_GITLAB/$REPO
+
+#docker-run:
+#  tags:
+#    - shell
+#  stage: deplay
+#  script:
+#    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+#    - >
+#      docker run
+#      -e "SPRING_PROFILES_ACTIVE=prod"
+#      --detach
+#      --restart always
+#      --volume /opt/log:/opt/log
+#      --name $APP_NAME
+#      --net netapp
+#      -t dgit.an7.by/$USER_GITLAB/$REPO:latest
+#  when: manual
+
+#docker-stop:
+#  tags:
+#    - shell
+#  stage: deplay
+#  script:
+#    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+#    - docker stop $APP_NAME
+#    - docker rm $APP_NAME
+#  when: manual
