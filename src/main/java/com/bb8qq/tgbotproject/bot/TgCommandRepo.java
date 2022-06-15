@@ -1,23 +1,24 @@
 package com.bb8qq.tgbotproject.bot;
 
 import com.bb8qq.tgbotproject.bot.command.TgCommand;
-import com.bb8qq.tgbotproject.bot.command.TgCommandEnd;
-import com.bb8qq.tgbotproject.bot.command.TgCommandSession;
-import com.bb8qq.tgbotproject.bot.command.TgCommandStart;
 import com.bb8qq.tgbotproject.model.TgSession;
 import com.bb8qq.tgbotproject.reposetory.TgSessionRepo;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.core.type.filter.RegexPatternTypeFilter;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.regex.Pattern;
 
 @Slf4j
 @Component
@@ -34,17 +35,44 @@ public class TgCommandRepo {
         this.tlp = tlp;
         this.tgCommands = new ArrayList<>();
         //------------------------------------------------------
-        // Все команды бота
-        tgCommands.add(TgCommand.g(TgCommandStart.class));
-        tgCommands.add(TgCommand.g(TgCommandSession.class));
-
-        //------------------------------------------------------
-        // Команда выполняется всегля если до нее дойдет оченедь
-        tgCommands.add(TgCommandEnd.g(TgCommandEnd.class));
+        try {
+            findAllClass();
+        } catch (Exception e) {
+            // Пропустить классы с ошибками - они не важны.
+            e.printStackTrace();
+        }
         //------------------------------------------------------
         for (TgCommand t : tgCommands) {
             t.setTlp(tlp);
         }
+    }
+
+    /**
+     * Загрузка объектов обработчиков по аннотациям и их параметрам.
+     *
+     * @throws ClassNotFoundException
+     * @throws IOException
+     */
+    private void findAllClass() throws ClassNotFoundException {
+        String lastTgCommand = null;
+        final ClassPathScanningCandidateComponentProvider provider = new ClassPathScanningCandidateComponentProvider(false);
+        provider.addIncludeFilter(new RegexPatternTypeFilter(Pattern.compile(".*")));
+        final Set<BeanDefinition> classes = provider.findCandidateComponents(TgCommandRepo.class.getPackage().getName());
+        for (BeanDefinition bean : classes) {
+            Class<?> clazz = Class.forName(bean.getBeanClassName());
+            Class cl = Class.forName(clazz.getName());
+            if (!cl.isAnnotationPresent(Command.class)) {
+                continue;
+            }
+            Command c = (Command) cl.getAnnotation(Command.class);
+            log("Обработчик: " + cl.getSimpleName() + ", комманды: " + c.commands());
+            if (!c.isEnd()) {
+                tgCommands.add(TgCommand.g(cl.getName()));
+            } else {
+                lastTgCommand = cl.getName();
+            }
+        }
+        tgCommands.add(TgCommand.g(lastTgCommand));
     }
 
     @Async("taskExecutor")
@@ -79,12 +107,10 @@ public class TgCommandRepo {
         // 2. Еслинет: Ищем последнюю сессию.
         if (tgCommand != null) {
             //log.info("Сессия прерванна. Исполнить команду. " + tgCommand.getClass().getSimpleName());
-            session.setStep(0);
-
         } else if (session.getCommand() != null) {
             tgCommand = TgCommand.g(session.getCommand());
         } else if (tgCommand == null) {
-            tgCommand = TgCommandEnd.g(TgCommandEnd.class);
+            tgCommand = tgCommands.get(tgCommands.size() - 1);
         }
         //-------------------------------
         // 3. Выполняем Команду

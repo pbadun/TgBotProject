@@ -1,9 +1,9 @@
 package com.bb8qq.tgbotproject.bot.command;
 
+import com.bb8qq.tgbotproject.bot.Command;
 import com.bb8qq.tgbotproject.model.TgSession;
 import com.bb8qq.tgbotproject.reposetory.TgSessionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -11,16 +11,11 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.List;
 
 @Deprecated
-@Component
+@Command(commands = "/session")
 public class TgCommandSession extends TgCommand {
 
     @Autowired
     private TgSessionRepo sessionRepo;
-
-    @Override
-    public String commands() {
-        return "/session";
-    }
 
     @Override
     public Integer runCommand(Update update, Long chatId, Integer step) throws TelegramApiException {

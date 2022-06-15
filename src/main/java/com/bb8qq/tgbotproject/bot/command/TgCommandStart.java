@@ -1,17 +1,12 @@
 package com.bb8qq.tgbotproject.bot.command;
 
-import org.springframework.stereotype.Component;
+import com.bb8qq.tgbotproject.bot.Command;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-@Component
+@Command(commands = "/start,/старт,/начать")
 public class TgCommandStart extends TgCommand {
-
-    @Override
-    public String commands() {
-        return "/start,/старт,/начать";
-    }
 
     @Override
     public Integer runCommand(Update update, Long chatId, Integer step) throws TelegramApiException {

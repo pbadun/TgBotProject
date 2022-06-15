@@ -1,5 +1,7 @@
 package com.bb8qq.tgbotproject.bot.command;
 
+import com.bb8qq.tgbotproject.bot.Command;
+import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -9,6 +11,7 @@ import java.util.HashMap;
 /**
  *
  */
+@Slf4j
 public abstract class TgCommand {
 
     //------------------------------------------------------------------------------------------------------------------
@@ -17,6 +20,18 @@ public abstract class TgCommand {
 
     public TgCommand() {
         map.put(getClass().getName(), this);
+        // Читаем параметры из аннотаций.
+        try {
+            Class cl = Class.forName(this.getClass().getName());
+            if (!cl.isAnnotationPresent(Command.class)) {
+                throw new Exception("");
+            }
+            Command c = (Command) cl.getAnnotation(Command.class);
+            commands = c.commands();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("");
+        }
     }
 
     public static TgCommand g(Class c) {
@@ -28,14 +43,10 @@ public abstract class TgCommand {
     }
 
     //------------------------------------------------------------------------------------------------------------------
+    // Для отправки сообщений.
     public TelegramLongPollingBot tlp;
-
-    /**
-     * Список доступных команд конкретного модуля.
-     *
-     * @return
-     */
-    public abstract String commands();
+    // Исполняемы комманды
+    private final String commands;
 
     /**
      * Исполение команды
@@ -54,9 +65,9 @@ public abstract class TgCommand {
      * @return
      */
     public boolean isCommand(String msg) {
-        String[] s = commands().split(",");
+        String[] s = commands.split(",");
         for (String ss : s) {
-            if (ss.equals(msg)) {
+            if (ss.trim().equals(msg)) {
                 return true;
             }
         }
