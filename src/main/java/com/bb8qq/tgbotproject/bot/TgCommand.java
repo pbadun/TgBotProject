@@ -1,6 +1,5 @@
-package com.bb8qq.tgbotproject.bot.command;
+package com.bb8qq.tgbotproject.bot;
 
-import com.bb8qq.tgbotproject.bot.Command;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;

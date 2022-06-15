@@ -1,6 +1,7 @@
 package com.bb8qq.tgbotproject.bot.command;
 
 import com.bb8qq.tgbotproject.bot.Command;
+import com.bb8qq.tgbotproject.bot.TgCommand;
 import com.bb8qq.tgbotproject.model.TgSession;
 import com.bb8qq.tgbotproject.reposetory.TgSessionRepo;
 import org.springframework.beans.factory.annotation.Autowired;

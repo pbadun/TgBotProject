@@ -1,6 +1,5 @@
 package com.bb8qq.tgbotproject.bot;
 
-import com.bb8qq.tgbotproject.bot.command.TgCommand;
 import com.bb8qq.tgbotproject.model.TgSession;
 import com.bb8qq.tgbotproject.reposetory.TgSessionRepo;
 import lombok.extern.slf4j.Slf4j;

@@ -1,6 +1,7 @@
 package com.bb8qq.tgbotproject.bot.command;
 
 import com.bb8qq.tgbotproject.bot.Command;
+import com.bb8qq.tgbotproject.bot.TgCommand;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
