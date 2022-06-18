@@ -114,8 +114,16 @@ public class TgCommandRepo {
         //-------------------------------
         // 3. Выполняем Команду
         Integer step = null;
+        step = session.getStep();
+        // комманда изменяющая шаг.
+        if (TgBaseKey._NEXT.equals(update.getMessage().getText())) {
+            step++;
+        }
         try {
-            step = tgCommand.runCommand(update, chatId, session.getStep());
+            step = tgCommand.runCommand(update, chatId, step);
+            if (step != null && step == -1) {
+                step = tgCommands.get(tgCommands.size() - 1).runCommand(update, chatId, step);
+            }
         } catch (TelegramApiException e) {
             e.printStackTrace();
         }
