@@ -12,7 +12,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.util.List;
 
 @Deprecated
-@Command(commands = "/session")
+//@Command(commands = "/session")
 public class TgCommandSession extends TgCommand {
 
     @Autowired

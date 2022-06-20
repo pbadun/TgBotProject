@@ -113,7 +113,7 @@ public class TgCommandRepo {
         }
         //-------------------------------
         // 3. Выполняем Команду
-        Integer step = null;
+        Integer step = 0;
         step = session.getStep();
         // комманда изменяющая шаг.
         if (TgBaseKey._NEXT.equals(update.getMessage().getText())) {

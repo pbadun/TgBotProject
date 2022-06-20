@@ -12,7 +12,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 /**
  * Регистрация пользователей.
  */
-@Command(commands = "/registration")
+@Command(commands = "/Регистрация")
 public class TgCommandRegistration extends TgCommand {
 
     @Autowired
@@ -36,7 +36,10 @@ public class TgCommandRegistration extends TgCommand {
                 return 1;
             case 2:
                 String name = lastMsg.cutLastMsg(chatId);
-                TgUser u = new TgUser();
+                TgUser u = tgUserRepo.findTgUserByChatId(chatId);
+                if (u == null) {
+                    u = new TgUser();
+                }
                 u.setChatId(chatId);
                 u.setAct(true);
                 u.setDel(false);
