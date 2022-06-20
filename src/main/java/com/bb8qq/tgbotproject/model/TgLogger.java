@@ -19,4 +19,7 @@ public class TgLogger {
     @Column(name = "msg")
     private String msg;
 
+    @Column(name = "tag")
+    private String tag;
+
 }
