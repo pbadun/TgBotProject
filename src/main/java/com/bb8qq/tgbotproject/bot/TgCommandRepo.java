@@ -64,7 +64,7 @@ public class TgCommandRepo {
                 continue;
             }
             Command c = (Command) cl.getAnnotation(Command.class);
-            log("Обработчик: " + cl.getSimpleName() + ", комманды: " + c.commands());
+            log.warn("Обработчик: " + cl.getSimpleName() + ", комманды: " + c.commands());
             if (!c.isEnd()) {
                 tgCommands.add(TgCommand.g(cl.getName()));
             } else {
@@ -84,7 +84,7 @@ public class TgCommandRepo {
             chatId = update.getMessage().getChatId();
             text = update.getMessage().getText();
         } else {
-            log(update);
+            log.error(update.toString());
             return;
         }
         //-------------------------------
@@ -113,8 +113,7 @@ public class TgCommandRepo {
         }
         //-------------------------------
         // 3. Выполняем Команду
-        Integer step = 0;
-        step = session.getStep();
+        Integer step = session.getStep();
         // комманда изменяющая шаг.
         if (TgBaseKey._NEXT.equals(update.getMessage().getText())) {
             step++;
@@ -131,16 +130,9 @@ public class TgCommandRepo {
             session.setStep(step);
             session.setCommand(tgCommand.getClass().getName());
             sessionRepo.save(session);
-            //log("Сессия обнавлена.");
-            //log(session);
         } else if (session.getId() != null) {
             sessionRepo.delete(session);
-            //log("Сессия удалена.");
         }
-    }
-
-    private void log(Object o) {
-        log.info(o.toString());
     }
 
 }
