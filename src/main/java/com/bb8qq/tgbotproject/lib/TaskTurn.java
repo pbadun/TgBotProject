@@ -11,4 +11,10 @@ public interface TaskTurn {
     // Поиск каналов, групп..
     String _TASK_SEARCH_CHATS = "TASK_SEARCH_CHATS";
 
+    // Добавить бота в чат
+    String _TASK_JOIN_CHAT = "TASK_JOIN_CHAT";
+
+    // Результат бодавления с группу
+    String _TASK_RESULT_JOIN_CHAT = "TASK_RESULT_JOIN_CHAT";
+
 }
