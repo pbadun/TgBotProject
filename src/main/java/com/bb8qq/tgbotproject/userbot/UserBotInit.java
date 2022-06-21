@@ -6,11 +6,11 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class UserBotInit {
 
     @Autowired
-    private TgComponent tgComponent;
+    private UserBotTgComponent tgComponent;
 
     //после того, как приложение полностью запущено
     @EventListener({ApplicationReadyEvent.class})
