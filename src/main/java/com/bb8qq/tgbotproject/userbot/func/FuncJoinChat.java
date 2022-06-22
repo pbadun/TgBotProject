@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FuncJoinChat extends UserBotFunc {
     private LCall<JoinChatResponse> call;
-    private Long chatId;
 
     public FuncJoinChat(SimpleTelegramClient client, LCall call) {
         super(client);

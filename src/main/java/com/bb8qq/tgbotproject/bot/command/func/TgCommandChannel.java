@@ -1,4 +1,4 @@
-package com.bb8qq.tgbotproject.bot.command;
+package com.bb8qq.tgbotproject.bot.command.func;
 
 import com.bb8qq.tgbotproject.bot.Command;
 import com.bb8qq.tgbotproject.bot.TgCommand;
@@ -10,6 +10,7 @@ public class TgCommandChannel extends TgCommand {
 
     @Override
     public Integer runCommand(Update update, Long chatId, Integer step) throws TelegramApiException {
+        sendMessage(chatId, "Список отслеживаемых каналов:");
         return null;
     }
 }

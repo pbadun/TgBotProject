@@ -18,4 +18,9 @@ public class SearchChatsRequest {
         this.query = query;
         this.chatId = chatId;
     }
+
+    public SearchChatsRequest(SearchChatsRequest searchChatsRequest) {
+        this.chatId = searchChatsRequest.getChatId();
+        this.query = searchChatsRequest.getQuery();
+    }
 }

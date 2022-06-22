@@ -1,4 +1,4 @@
-package com.bb8qq.tgbotproject.bot.command;
+package com.bb8qq.tgbotproject.bot.command.base;
 
 import com.bb8qq.tgbotproject.bot.Command;
 import com.bb8qq.tgbotproject.bot.TgCommand;
@@ -32,8 +32,8 @@ public class TgCommandEnd extends TgCommand {
             sendMessage(chatId,
                     msg,
                     keyboardMarkup(
-                            new String[]{"/Каналы", "/Группы", "/Добавить"},
-                            new String[]{"/Настройки", "/Донат", "/Предложения"})
+                            new String[]{"/Каналы", "/Добавить", "/Настройки"},
+                            new String[]{"/Донат", "/Предложения", "/Справка"})
             );
         }
         return null;

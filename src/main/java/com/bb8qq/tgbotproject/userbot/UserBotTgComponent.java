@@ -6,8 +6,11 @@ import com.bb8qq.tgbotproject.lib.task.SearchChatsRequest;
 import com.bb8qq.tgbotproject.service.LoggerService;
 import com.bb8qq.tgbotproject.service.TaskTurnService;
 import com.bb8qq.tgbotproject.userbot.func.FuncJoinChat;
-import com.bb8qq.tgbotproject.userbot.func.FuncSearchChats;
-import it.tdlight.client.*;
+import com.bb8qq.tgbotproject.userbot.func.FuncSearchPublicChat;
+import it.tdlight.client.APIToken;
+import it.tdlight.client.AuthenticationData;
+import it.tdlight.client.SimpleTelegramClient;
+import it.tdlight.client.TDLibSettings;
 import it.tdlight.common.Init;
 import it.tdlight.common.utils.CantLoadLibrary;
 import it.tdlight.jni.TdApi;
@@ -17,7 +20,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 @Component
 @Slf4j
@@ -89,9 +91,9 @@ public class UserBotTgComponent {
     private void initFunc() {
         // Поиск группы
         taskTurn.addCall(TaskTurn._TASK_SEARCH_CHATS, o -> {
-            new FuncSearchChats(client, o1 -> {
+            new FuncSearchPublicChat(client, o1 -> {
                 taskTurn.runCall(TaskTurn._TASK_RESULT_SEARCH_CHATS, o1);
-            }).searchPublicChats((SearchChatsRequest) o);
+            }).SearchPublicChat((SearchChatsRequest) o);
         });
         // Присоедениться к группе
         taskTurn.addCall(TaskTurn._TASK_JOIN_CHAT, o -> {
@@ -135,7 +137,8 @@ public class UserBotTgComponent {
         } else {
             text = String.format("(%s)", messageContent.getClass().getSimpleName());
         }
-        log.error(text);
+        //log.error(text);
+        //log.error(update.toString());
         //------------------
         /*
         client.send(new TdApi.GetChat(update.message.chatId), chatIdResult -> {

@@ -1,4 +1,4 @@
-package com.bb8qq.tgbotproject.bot.command;
+package com.bb8qq.tgbotproject.bot.command.profil;
 
 import com.bb8qq.tgbotproject.bot.Command;
 import com.bb8qq.tgbotproject.bot.TgCommand;

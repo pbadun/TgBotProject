@@ -83,6 +83,9 @@ public class TgCommandRepo {
         if (update.hasMessage()) {
             chatId = update.getMessage().getChatId();
             text = update.getMessage().getText();
+        } else if (update.hasCallbackQuery()) {
+            chatId = update.getCallbackQuery().getMessage().getChatId();
+            text = update.getCallbackQuery().getData();
         } else {
             log.error(update.toString());
             return;
@@ -115,13 +118,14 @@ public class TgCommandRepo {
         // 3. Выполняем Команду
         Integer step = session.getStep();
         // комманда изменяющая шаг.
-        if (TgBaseKey._NEXT.equals(update.getMessage().getText())) {
+        if (TgBaseKey._NEXT.equals(text)) {
             step++;
         }
         try {
             step = tgCommand.runCommand(update, chatId, step);
             if (step != null && step == -1) {
-                step = tgCommands.get(tgCommands.size() - 1).runCommand(update, chatId, step);
+                tgCommand = tgCommands.get(tgCommands.size() - 1);
+                step = tgCommand.runCommand(update, chatId, step);
             }
         } catch (TelegramApiException e) {
             e.printStackTrace();
