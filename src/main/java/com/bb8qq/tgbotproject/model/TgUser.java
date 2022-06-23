@@ -3,6 +3,7 @@ package com.bb8qq.tgbotproject.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tg_user")

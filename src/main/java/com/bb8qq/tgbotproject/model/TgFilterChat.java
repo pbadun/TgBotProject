@@ -15,12 +15,15 @@ public class TgFilterChat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private TgUser tgUser;
-
+    // Канал
     @ManyToOne(fetch = FetchType.LAZY)
-    private TgTrackingChat tgTrackingChat;
+    private TgTrackingChannel trackingChannel;
 
+    // Объект ыильтра
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TgMyChannels myChannels;
+
+    // Искомое слово
     @Column(name = "word")
     private String word;
 
