@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+//TODO Функционал на будущее !
 @Command(commands = "/Настройки")
 @Slf4j
 public class TgCommandSettings extends TgCommand {

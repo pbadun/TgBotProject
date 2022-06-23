@@ -5,6 +5,7 @@ import com.bb8qq.tgbotproject.bot.TgCommand;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+//TODO Функционал на будущее !
 @Command(commands = "/Справка")
 public class TgCommandHelp extends TgCommand {
     private String[] messages = {
