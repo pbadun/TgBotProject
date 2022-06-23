@@ -24,6 +24,10 @@ public class FuncSearchPublicChat extends UserBotFunc {
         if (u.length != 1) {
             query = u[u.length - 1];
         }
+        if (query.indexOf("@") == -1) {
+            query = "@" + query;
+        }
+        q.setQuery(query);
         client.send(new TdApi.SearchPublicChat(query), o -> {
             if (o.isError()) {
                 call.call(new SearchChatsResponse(q));

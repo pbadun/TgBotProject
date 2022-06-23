@@ -97,11 +97,13 @@ public class TgCommandRepo {
             session.setStep(0);
             session.setChatId(chatId);
         }
+        Integer step = session.getStep();
         //-------------------------------
         // 1. Ищем среди комманд
         for (TgCommand tc : tgCommands) {
             if (tc.isCommand(text)) {
                 tgCommand = tc;
+                step = 0;
                 break;
             }
         }
@@ -116,7 +118,7 @@ public class TgCommandRepo {
         }
         //-------------------------------
         // 3. Выполняем Команду
-        Integer step = session.getStep();
+
         // комманда изменяющая шаг.
         if (TgBaseKey._NEXT.equals(text)) {
             step++;

@@ -18,7 +18,10 @@ public class TgMyChannels {
     @ManyToOne(fetch = FetchType.LAZY)
     private TgUser tgUser;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private TgTrackingChannel channel;
+
+    @Column(name = "channel_name")
+    private String channelName;
 
 }

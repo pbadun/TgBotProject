@@ -32,8 +32,10 @@ public class TgCommandEnd extends TgCommand {
             sendMessage(chatId,
                     msg,
                     keyboardMarkup(
-                            new String[]{"/Каналы", "/Добавить", "/Настройки"},
-                            new String[]{"/Донат", "/Предложения", "/Справка"})
+                            new String[]{"/Каналы", "/Настройки"},
+                            new String[]{"/Предложения", "/Справка"}
+                            //new String[]{"/Донат",}
+                    )
             );
         }
         return null;

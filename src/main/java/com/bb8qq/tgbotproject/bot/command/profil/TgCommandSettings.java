@@ -34,6 +34,8 @@ public class TgCommandSettings extends TgCommand {
                 case 2: //Оповещение
                 case 3: //Преостановить / Возобновить
                 case 4: //Удалить профиль
+                    sendMessage(chatId, "Ok");
+                    return 0;
                 default:
                     return 0;
             }

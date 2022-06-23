@@ -25,7 +25,11 @@ public class FuncJoinChat extends UserBotFunc {
     public void joinChat(JoinChatRequest joinChatRequest) {
         long chatId = joinChatRequest.getGroupId();
         client.send(new TdApi.JoinChat(chatId), result -> {
-            log.warn(result.toString());
+            if (!result.isError()) {
+                call.call(new JoinChatResponse(joinChatRequest, true));
+            } else {
+                call.call(new JoinChatResponse(joinChatRequest, false));
+            }
         });
     }
 

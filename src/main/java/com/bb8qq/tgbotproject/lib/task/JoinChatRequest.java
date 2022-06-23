@@ -16,4 +16,9 @@ public class JoinChatRequest {
         this.chatId = chatId;
         this.groupId = groupId;
     }
+
+    public JoinChatRequest(JoinChatRequest chatRequest) {
+        this.chatId = chatRequest.getChatId();
+        this.groupId = chatRequest.getGroupId();
+    }
 }

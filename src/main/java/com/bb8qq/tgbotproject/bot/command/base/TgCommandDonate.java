@@ -5,6 +5,8 @@ import com.bb8qq.tgbotproject.bot.TgCommand;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+//TODO Задел на будущее... В меню - скрыт.
+@Deprecated
 @Command(commands = "/Донат")
 public class TgCommandDonate extends TgCommand {
     @Override
