@@ -26,12 +26,12 @@ spring:
     database-platform: 'org.hibernate.dialect.PostgreSQL9Dialect'
 
 tg-bot:
-  name: jra_test_bot
-  key: 5594193775:AAEez8iB72U87-KIvWMWXcAzO_Bza7q3Y7E
+  name: 
+  key: 
 
 userbot:
-  token: e4cbf8ca8e38f9ae4f4781ee9dd1309c
-  apiid: 9200754
+  token: 
+  apiid: 
   session-file: example-tdlight-session
   session-data: data
   session-downloads: downloads
