@@ -2,6 +2,7 @@ package com.bb8qq.tgbotproject.reposetory;
 
 import com.bb8qq.tgbotproject.model.TgFilterChat;
 import com.bb8qq.tgbotproject.model.TgMyChannels;
+import com.bb8qq.tgbotproject.model.TgTrackingChannel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,5 +15,6 @@ public interface TgFilterChatRepo extends JpaRepository<TgFilterChat, Long> {
 
     List<TgFilterChat> findAllByMyChannels(TgMyChannels myChannels);
 
+    List<TgFilterChat> findAllByTrackingChannel(TgTrackingChannel channel);
 
 }

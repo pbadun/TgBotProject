@@ -74,7 +74,7 @@ public class TgCommandRepo {
         tgCommands.add(TgCommand.g(lastTgCommand));
     }
 
-    @Async("taskExecutor")
+    @Async("taskExecutorA")
     public void run(Update update) {
         Long chatId;
         String text;

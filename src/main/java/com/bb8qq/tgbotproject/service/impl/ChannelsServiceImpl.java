@@ -67,7 +67,7 @@ public class ChannelsServiceImpl implements ChannelsService {
     public List<ChannelDTO> listChannel(Long chatId, Integer offset) {
         List<ChannelDTO> result = new ArrayList<>();
         TgUser u = userRepo.findTgUserByChatId(chatId);
-        List<TgMyChannels> channels = myChannelsRepo.findByTgUser(u, PageRequest.of(offset, 4));
+        List<TgMyChannels> channels = myChannelsRepo.findByTgUserOrderByIdDesc(u, PageRequest.of(offset, 4));
         for (TgMyChannels cc : channels) {
             ChannelDTO c = new ChannelDTO();
             c.setId(cc.getId());

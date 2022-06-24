@@ -17,4 +17,7 @@ public interface TaskTurn {
     // Результат бодавления с группу
     String _TASK_RESULT_JOIN_CHAT = "TASK_RESULT_JOIN_CHAT";
 
+    // Ловим данны от ЮзерБота
+    String _TASK_USER_BOT = "TASK_USER_BOT";
+
 }

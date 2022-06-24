@@ -14,4 +14,6 @@ public interface TgMyChannelsRepo extends JpaRepository<TgMyChannels, Long> {
 
     List<TgMyChannels> findByTgUser(TgUser tgUser, Pageable pageable);
 
+    List<TgMyChannels> findByTgUserOrderByIdDesc(TgUser tgUser, Pageable pageable);
+
 }

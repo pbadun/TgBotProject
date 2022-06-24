@@ -11,8 +11,8 @@ import java.util.concurrent.Executor;
 @EnableAsync
 public class AsyncConfiguration {
 
-    @Bean("taskExecutor")
-    public Executor asyncExecutor() {
+    @Bean("taskExecutorA")
+    public Executor asyncExecutorA() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // Количество основных потоков 5: количество потоков, инициализированных при создании пула потоков
         executor.setCorePoolSize(5);
@@ -25,6 +25,18 @@ public class AsyncConfiguration {
         // уничтожен после наступления времени простоя
         executor.setKeepAliveSeconds(60);
         // Префикс имени пула потоков: после его установки нам удобно найти пул потоков, в котором находится задача обработки
+        executor.setThreadNamePrefix("DailyAsync-");
+        executor.initialize();
+        return executor;
+    }
+
+    @Bean("taskExecutorB")
+    public Executor asyncExecutorB() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(5);
+        executor.setMaxPoolSize(5);
+        executor.setQueueCapacity(500);
+        executor.setKeepAliveSeconds(60);
         executor.setThreadNamePrefix("DailyAsync-");
         executor.initialize();
         return executor;

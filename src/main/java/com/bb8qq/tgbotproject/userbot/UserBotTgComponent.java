@@ -1,10 +1,13 @@
 package com.bb8qq.tgbotproject.userbot;
 
+import com.bb8qq.tgbotproject.lib.MsgType;
 import com.bb8qq.tgbotproject.lib.TaskTurn;
+import com.bb8qq.tgbotproject.lib.dto.UBMessage;
 import com.bb8qq.tgbotproject.lib.task.JoinChatRequest;
 import com.bb8qq.tgbotproject.lib.task.SearchChatsRequest;
 import com.bb8qq.tgbotproject.service.LoggerService;
 import com.bb8qq.tgbotproject.service.TaskTurnService;
+import com.bb8qq.tgbotproject.service.UserBotMessageService;
 import com.bb8qq.tgbotproject.userbot.func.FuncJoinChat;
 import com.bb8qq.tgbotproject.userbot.func.FuncSearchPublicChat;
 import it.tdlight.client.APIToken;
@@ -45,6 +48,9 @@ public class UserBotTgComponent {
 
     @Autowired
     private LoggerService loggerService;
+
+    @Autowired
+    private UserBotMessageService userBotMessageService;
 
     private SimpleTelegramClient client;
 
@@ -104,7 +110,6 @@ public class UserBotTgComponent {
 
     }
 
-
     /**
      * Статус бота.
      */
@@ -131,24 +136,34 @@ public class UserBotTgComponent {
      */
     private void onUpdateNewMessage(TdApi.UpdateNewMessage update) {
         var messageContent = update.message.content;
-        String text;
+        Long channelId = update.message.chatId;
+        UBMessage message = new UBMessage();
+        message.setChannelId(channelId);
         if (messageContent instanceof TdApi.MessageText messageText) {
-            text = messageText.text.text;
+            message.setMsg(messageText.text.text);
+            message.setMsgType(MsgType.MESSAGE);
+            userBotMessageService.sendMessage(message);
+        } else if (messageContent instanceof TdApi.MessagePhoto messagePhoto) {
+            message.setMsg(messagePhoto.caption.text);
+            message.setMsgType(MsgType.PHOTO);
+            userBotMessageService.sendMessage(message);
+        } else if (messageContent instanceof TdApi.MessageVideo messageVideo) {
+            message.setMsg(messageVideo.caption.text);
+            message.setMsgType(MsgType.VIDEO);
+            userBotMessageService.sendMessage(message);
+        } else if (messageContent instanceof TdApi.MessageAnimation messageAnimation) {
+            message.setMsg(messageAnimation.caption.text);
+            message.setMsgType(MsgType.ANIMATION);
+            userBotMessageService.sendMessage(message);
+        } else if (messageContent instanceof TdApi.MessagePoll messagePoll) {
+            message.setMsg(messagePoll.poll.question);
+            message.setMsgType(MsgType.POLL);
+            userBotMessageService.sendMessage(message);
         } else {
-            text = String.format("(%s)", messageContent.getClass().getSimpleName());
-        }
-        //log.error(text);
-        //log.error(update.toString());
-        //------------------
-        /*
-        client.send(new TdApi.GetChat(update.message.chatId), chatIdResult -> {
-            var chat = chatIdResult.get();
-            var chatName = chat.title;
-            long id = chat.id;
-            log("Msg chat [" + id + "][" + chatName + "]: " + text);
-            //taskTurn.runCall("wea", "UserBot Chat [" + id + "][" + chatName + "]: " + text);
-        });*/
 
+            //text = String.format("(%s)", messageContent.getClass().getSimpleName());
+            log.warn(update.toString());
+        }
     }
 
 }
