@@ -5,6 +5,7 @@ public enum MsgType {
     PHOTO,
     VIDEO,
     ANIMATION,
+    AUDIO,
     POLL,
     OTHER
 }

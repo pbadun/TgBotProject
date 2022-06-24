@@ -1,13 +1,10 @@
-server:
-  port: 8181
-
 spring:
   main:
     banner-mode: off
   datasource:
-    url: 'jdbc:postgresql://localhost:5432/lesson'
-    username: lesson
-    password: lesson
+    url: 'jdbc:postgres://nlsphirfociwaz:719612e8a48bacfcd5098a698927250b88aca2b6f48c497cbf5997288942e8d8@ec2-54-228-125-183.eu-west-1.compute.amazonaws.com:5432/dcfdlueob6ecuk'
+    username: nlsphirfociwaz
+    password: 719612e8a48bacfcd5098a698927250b88aca2b6f48c497cbf5997288942e8d8
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -15,5 +12,12 @@ spring:
     database-platform: 'org.hibernate.dialect.PostgreSQL9Dialect'
 
 tg-bot:
-  name: xxxxx
-  key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  name: sublistener_bot
+  key: 5476375699:AAHpbcRKShEgDeQEy6TuHPLi5TSA16REcIU
+
+userbot:
+  token: e4cbf8ca8e38f9ae4f4781ee9dd1309c
+  apiid: 9200754
+  session-file: tdlight-session
+  session-data: data
+  session-downloads: downloads

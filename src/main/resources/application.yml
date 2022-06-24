@@ -1,5 +1,3 @@
-server:
-  port: 8532
 spring:
   profiles:
-    active: dev
+    active: prod

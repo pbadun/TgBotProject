@@ -13,8 +13,6 @@ import com.bb8qq.tgbotproject.service.ChannelsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

@@ -159,10 +159,12 @@ public class UserBotTgComponent {
             message.setMsg(messagePoll.poll.question);
             message.setMsgType(MsgType.POLL);
             userBotMessageService.sendMessage(message);
+        } else if (messageContent instanceof TdApi.MessageAudio messageAudio) {
+            message.setMsg(messageAudio.caption.text);
+            message.setMsgType(MsgType.AUDIO);
+            userBotMessageService.sendMessage(message);
         } else {
-
-            //text = String.format("(%s)", messageContent.getClass().getSimpleName());
-            log.warn(update.toString());
+            log.error("Не поддерживаемый тип: " + messageContent.getClass().toString());
         }
     }
 
